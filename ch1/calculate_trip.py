@@ -26,14 +26,14 @@ def haversine_distance(lat1, lon1, lat2, lon2):
         
         return distance
 
-def calculate_trip_price(base_charge, charge_per_km, charge_per_minute, pickup_coord, dropoff_coord):
+def calculate_trip_price(base_charge, charge_per_km, charge_per_minute, pickup_coord, dropoff_coord, min_fare, promo_code_discount):
     # Calculate the distance between pickup and dropoff coordinates
 
     distance = haversine_distance(pickup_coord[0], pickup_coord[1], dropoff_coord[0], dropoff_coord[1])
     print("+++ distance", distance)
     
     # Calculate the duration charge (in minutes, assuming the duration is provided)
-    duration_minutes = 35  # Example duration in minutes
+    duration_minutes = 10  # Example duration in minutes
     duration_charge = duration_minutes * charge_per_minute
     
     # Calculate the distance charge
@@ -42,19 +42,33 @@ def calculate_trip_price(base_charge, charge_per_km, charge_per_minute, pickup_c
     # Calculate the total price
     total_price = base_charge + duration_charge + distance_charge
     
+    if promo_code_discount:
+        tota_discount = total_price*(promo_code_discount/100)
+        total_price = total_price - tota_discount 
+        
+    
     # Round off the total price to the nearest 500
     rounded_price = round(total_price / 500) * 500
+    
+    if rounded_price < min_fare:
+        return min_fare
     
     return rounded_price
 
 # Example charges and coordinates
-base_charge = 500
-charge_per_km = 230
-charge_per_minute = 50
+base_charge = 5000
+charge_per_km = 1000
+charge_per_minute = 250
+min_fare = 10000
+promo_code_discount = 20
 pickup_coord = (0.307354, 32.584065)  # Arena mall
 dropoff_coord = (0.381255, 32.629299)  # Najjera police
 
-total_price = calculate_trip_price(base_charge, charge_per_km, charge_per_minute, pickup_coord, dropoff_coord)
+total_price = calculate_trip_price(base_charge, charge_per_km, charge_per_minute, pickup_coord, dropoff_coord, min_fare, promo_code_discount)
 
+# consider promo  code
+# distance premium
+# blanket discount
+# create a trip summary
 print(f"Total Price: {total_price:.2f}")
 
