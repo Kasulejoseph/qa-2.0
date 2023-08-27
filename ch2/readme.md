@@ -3,11 +3,16 @@
 ## Steps
 
 ### Environment
-- `create a .env file and include the BASE_URL`
+`create a .env file and include the BASE_URL`
+
+```
+<!-- example -->
+BASE_URL=https://restful-booker.herokuapp.com/
+```
 
 
 ### Install dependancies
-- `npm install`
+`npm install`
 
-## Run test
-- `npm run test`
+### Run test
+`npm run test`
