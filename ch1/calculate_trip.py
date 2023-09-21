@@ -107,6 +107,7 @@ def calculate_trip_price(
 
     rounded_price = rounded_price if rounded_price > 0 else 0
 
+    # final price can be less than min_fare if promo code discount is used
     if (rounded_price < min_fare) and promo_code_discount > 0:
         final_price = rounded_price
     if (rounded_price < min_fare) and promo_code_discount <= 0:
@@ -120,8 +121,8 @@ def calculate_trip_price(
         {
             "base fare": base_charge + duration_charge + distance_charge,
             "minimum fare": min_fare,
-            "time": duration_charge,
-            "distance": distance_charge,
+            "duration+charge": duration_charge,
+            "distance+charge": distance_charge,
             "premium": premium_value,
             "discounts": discount_value,
             "final_price": final_price,
@@ -137,11 +138,11 @@ charge_per_km = 1000
 charge_per_minute = 250
 min_fare = 10000
 geo_area_premium = 0
-promo_code_discount = 90
+promo_code_discount = 10
 medium_distance_premium = 70
 long_distance_premium = 0
-morning_rush_premium = 0
-evening_rush_premium = 0
+morning_rush_premium = 10
+evening_rush_premium = 25
 commission = 10
 blanket_discount = 0
 
