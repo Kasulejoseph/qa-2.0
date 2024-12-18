@@ -1,10 +1,7 @@
-
 export class Page {
-    constructor(page) {
-        this.page = page
-     }
+  constructor(page) {
+    this.page = page;
+  }
 
-    async goto(url) {
-        await this.page.goto(url)
-    }
+   goto = async(url) => await this.page.goto(url);
 }
